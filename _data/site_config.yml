@@ -213,7 +213,23 @@ observation_attributes: []
 progress_status:
   status_heading: ''
   status_help: ''
-  status_types: []
+  status_types:
+    - value: not_available
+      label: status.progress_not_available
+      image: assets/img/progress/not-available.png
+      alt: status.progress_not_available
+    - value: target_achieved
+      label: status.progress_target_achieved
+      image: assets/img/progress/target-achieved.png
+      alt: status.progress_target_achieved
+    - value: challenges_remain
+      label: status.progress_challenges_remain
+      image: assets/img/progress/challenges-remain.png
+      alt: status.progress_challenges_remain
+    - value: approaching_target
+      label: status.progress_approaching_target
+      image: assets/img/progress/approaching-target.png
+      alt: status.progress_approaching_target
 progressive_web_app:
   enabled: false
   name: ''
