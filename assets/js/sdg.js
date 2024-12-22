@@ -3641,7 +3641,7 @@ function updateHeadlineColor(contrast, chartInfo) {
  * @return {String} The headline color in hex form.
  */
 function getHeadlineColor(contrast) {
-    return isHighContrast(contrast) ? '#55a6e5' : '#004466';
+    return isHighContrast(contrast) ? '#55a6e5' : '#013161';
 }
 
 /**
