@@ -106,7 +106,7 @@ goal_image_extension: ''
 goals_page:
   title: general.goals
   description: frontpage.instructions_shorter
-graph_color_headline: '#004466'
+graph_color_headline: '#013161'
 graph_color_headline_high_contrast: '#55a6e5'
 graph_color_set: accessible
 graph_color_list: []
