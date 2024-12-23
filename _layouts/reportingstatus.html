@@ -1,0 +1,86 @@
+{% include head.html %}
+{% include header.html %}
+
+{%- assign reporting_data = site.data.reporting %}
+
+<div id="main-content" class="container reportingstatus" role="main">
+
+  {% include components/reporting-status-introduction.html %}
+
+  <div>
+  <h2>{{ page.t.status.reporting_status }}</h2>
+  
+  <!-- Overall Section -->
+  <div class="goal reporting-status-item">
+    <div class="frame goal-tiles">
+      <img src="{{ site.baseurl }}/assets/img/SDG Wheel_Transparent-01.png" alt="{{ page.t.general.sdg }}" width="100" height="100" class="goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
+    </div>
+    <div class="details">
+      <h3 class="status-goal">{{ page.t.status.overall_reporting_status }}</h3>
+      <span class="total">{{ reporting_data.overall.totals.total }} {{ page.t.general.indicators | downcase }}</span>
+      
+      {% if reporting_data.overall.totals.total > 0 %}
+      <div class="summary">
+        <div class="statuses">
+          {%- for status in reporting_data.overall.statuses -%}
+          <div>
+            <span class="status {{ status.status | slugify }}"><span class="status-inner">{{ status.count }}</span></span>
+            <strong>{{ site.reporting_status.status_types | where: "value", status.status | first.label }}</strong>
+            <span class="value">{{ status.percentage | round }}%</span>
+          </div>
+          {%- endfor -%}
+          <br style="clear:both;">
+        </div>
+      </div>
+      
+      <div class="goal-stats">
+        {%- for status in reporting_data.overall.statuses -%}
+        <span class="{{ status.status | slugify }}" style="width:{{ status.percentage }}%" title="{{ site.reporting_status.status_types | where: "value", status.status | first.label }}: {{ status.percentage | round }}%"></span>
+        {%- endfor -%}
+      </div>
+      {% endif %}
+    </div>
+    <br style="clear:both;">
+  </div>
+
+  <!-- Goals Section -->
+  {%- for goal in reporting_data.goals -%}
+  <div class="goal reporting-status-item">
+    <div class="frame goal-tiles">
+      <img src="{{ site.baseurl }}/assets/img/goals/goal-{{ goal.goal }}.png" alt="{{ page.t.goal.indicators_for_goal }} {{ goal.goal }}" width="100" height="100" class="goal-icon-{{ goal.goal }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
+    </div>
+    <div class="details">
+      <h3 class="status-goal">{{ page.t.goal.goal }} {{ goal.goal }}</h3>
+      <span class="total">{{ goal.totals.total }} {{ page.t.general.indicators | downcase }}</span>
+      
+      {% if goal.totals.total > 0 %}
+      <div class="summary">
+        <div class="statuses">
+          {%- for status in goal.statuses -%}
+          <div>
+            <span class="status {{ status.status | slugify }}"><span class="status-inner">{{ status.count }}</span></span>
+            <strong>{{ site.reporting_status.status_types | where: "value", status.status | first.label }}</strong>
+            <span class="value">{{ status.percentage | round }}%</span>
+          </div>
+          {%- endfor -%}
+          <br style="clear:both;">
+        </div>
+      </div>
+      
+      <div class="goal-stats">
+        {%- for status in goal.statuses -%}
+        <span class="{{ status.status | slugify }}" style="width:{{ status.percentage }}%" title="{{ site.reporting_status.status_types | where: "value", status.status | first.label }}: {{ status.percentage | round }}%"></span>
+        {%- endfor -%}
+      </div>
+      {% endif %}
+    </div>
+    <br style="clear:both;">
+  </div>
+  {%- endfor -%}
+
+  </div>
+
+  {% include back-to-top.html %}
+</div>
+
+{% include footer.html %}
