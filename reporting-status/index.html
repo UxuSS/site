@@ -140,7 +140,7 @@ var translations = {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link res="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" crossorigin="">
-        <link rel="stylesheet" href="/site/assets/css/style.css?v=20241224092043">
+        <link rel="stylesheet" href="/site/assets/css/style.css?v=20241224092507">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
           integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
           crossorigin=""/>
@@ -273,10 +273,23 @@ data-event-label="high"
 
 
 
+
+
+
+
+<div class="container">
+  <nav>
+    <ol aria-label="breadcrumb" class="breadcrumb" style="--bs-breadcrumb-divider: '&rsaquo;';">
+        <li class="breadcrumb-item" >
+            <a href="/site/">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Reporting status</li>
+    </ol>
+</nav>
+</div>
 <div id="main-content" class="container reportingstatus" role="main">
-  <!-- Introducción -->
-  <div>
-    <h1>
+
+  <h1>
   
     Reporting status
   
@@ -289,11 +302,12 @@ data-event-label="high"
 </div>
 
 
-  </div>
 
-  <!-- Reporte general -->
   <div>
-    <div class="goal goal-overall">
+  
+
+  
+  <div class="goal goal-overall">
     
     <div class="frame goal-tiles">
         <img src="/site/assets/img/SDG Wheel_Transparent-01.png" alt="Sustainable Development Goals" width="100" height="100" class="goal-icon-image goal-icon-image-"/>
@@ -338,11 +352,7 @@ data-event-label="high"
     </div>
     <br style="clear:both;">
 </div>
-  </div>
-
-  <!-- Reporte por objetivo -->
-  <div>
-    <h2>Status by goal</h2><div class="goal reporting-status-item">
+  <h2>Status by goal</h2><div class="goal reporting-status-item">
     <div class="frame goal-tiles">
         <a href="/site/1/" title="View targets and indicators for Goal 1" aria-label="View targets and indicators for Goal 1">
         <img src="https://open-sdg.org/sdg-translations/assets/img/goals/en/1.png" alt="No poverty - Goal 1" width="100" height="100" class="goal-icon-1 goal-icon-image goal-icon-image-"/>
@@ -1108,10 +1118,17 @@ data-event-label="high"
     </div>
     <br style="clear:both;">
 </div>
-  </div>
-</div>
+  
 
-<a href="#top">Back to top</a>
+  
+
+  
+
+  
+
+  </div>
+  <a href="#top">Back to top</a>
+</div>
 <footer role="contentinfo">
     <div class="container">
         <div class="row">
@@ -1179,12 +1196,12 @@ data-event-label="high"
 <script>translations['search'] = translations['search'] || {};
     translations['search']['search'] = 'Search';</script>
 
-<script src='/site/assets/js/sdg.js?v=20241224092043'></script>
+<script src='/site/assets/js/sdg.js?v=20241224092507'></script>
 
 
     
     
-    <script src="/site/assets/js/custom.js?v=20241224092043"></script><script>
+    <script src="/site/assets/js/custom.js?v=20241224092507"></script><script>
     new indicatorInit();
     new accessibilitySwitcher();
 </script>
