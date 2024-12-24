@@ -8,13 +8,15 @@ permalink: /es/progreso/
 {% include head.html %}
 {% include header.html %}
 
+## Informe de seguimiento
+
+El informe de seguimiento proporciona una descripción general del progreso en la consecución de los Objetivos de Desarrollo Sostenible (ODS) en la Comunidad Autónoma de Euskadi.
+
+Para saber más sobre el procedimiento para evaluar el progreso, ver <a href="https://eustat-des.github.io/site/metodologia">Metodología para la medición del progreso</a>.
+
 {% assign reporting_data = site.data[page.language].reporting | default: site.data.reporting %}
 
 <div id="main-content" class="container reportingstatus" role="main">
-  <!-- Introducción -->
-  <div>
-    {% include components/reporting-status-introduction.html %}
-  </div>
 
   <!-- Reporte general -->
   <div>
