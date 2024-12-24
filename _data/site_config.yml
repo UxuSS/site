@@ -40,6 +40,10 @@ create_pages:
     layout: reportingstatus
     title: status.reporting_status
   - filename: ''
+    folder: /progreso
+    layout: progreso
+    title: status.reporting_status
+  - filename: ''
     folder: /search
     layout: search
     title: search.search
@@ -185,6 +189,9 @@ menu:
     dropdown: []
   - path: /reporting-status
     translation_key: menu.reporting_status
+    dropdown: []
+  - path: /progreso
+    translation_key: menu.progress_status
     dropdown: []
   - path: /news
     translation_key: menu.updates
