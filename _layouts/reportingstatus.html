@@ -29,6 +29,10 @@
 
   {% include components/reporting-status-introduction.html %}
 
+  <div class="reporting-status-description">
+  {{ site.reporting_status.status_by_field | t | markdownify }}
+</div>
+
   <div>
   {% if show_tabs %}
   <ul class="nav nav-tabs reporting-status-view" role="tablist">
