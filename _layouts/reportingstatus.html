@@ -1,24 +1,24 @@
 {% include head.html %}
 {% include header.html %}
 
-{% assign reporting_data = site.data.reporting %}
-{% if site.data[page.language].reporting %}
-  {% assign reporting_data = site.data[page.language].reporting %}
-{% endif %}
+{% assign reporting_data = site.data[page.language].reporting | default: site.data.reporting %}
 
 <div id="main-content" class="container reportingstatus" role="main">
-
   {% include components/reporting-status-introduction.html %}
 
   <div class="tab-content reporting-status-view">
-    <div role="tabpanel" class="tab-pane active" id="goalsview">
-
-  {% include components/reportingstatus/reporting-status-overall.html overall=reporting_data.overall title=page.t.status.overall_reporting_status status_types="reporting_status" %}
-  {% include components/reportingstatus/reporting-status-by-goal.html goals=reporting_data.goals title=page.t.status.status_by_goal status_types="reporting_status" %}
-
-    </div>
-
+    {% include components/reportingstatus/reporting-status-overall.html 
+       overall=reporting_data.overall 
+       title=page.t.status.overall_reporting_status 
+       status_types="reporting_status" %}
+    {% include components/reportingstatus/reporting-status-by-goal.html 
+       goals=reporting_data.goals 
+       title=page.t.status.status_by_goal 
+       status_types="reporting_status" %}
   </div>
+</div>
+
+
   {% include back-to-top.html %}
 </div>
 {% include footer.html %}
