@@ -191,7 +191,7 @@ menu:
     translation_key: menu.reporting_status
     dropdown: []
   - path: /progreso
-    translation_key: menu.progress_status
+    translation_key: status.progress_status
     dropdown: []
   - path: /news
     translation_key: menu.updates
