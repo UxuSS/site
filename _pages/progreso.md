@@ -5,8 +5,6 @@ language: en
 permalink: /progreso/
 ---
 
-Aaaa
-
 {% include head.html %}
 {% include header.html %}
 
@@ -17,6 +15,8 @@ Aaaa
   <div>
     {% include components/reporting-status-introduction.html %}
   </div>
+
+  <div>AAAA</div>
 
   <!-- Reporte general -->
   <div>
