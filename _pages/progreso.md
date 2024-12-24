@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: reportingstatus
 title: Progreso
 language: en
 permalink: /progreso/
