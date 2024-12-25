@@ -5,9 +5,6 @@ language: en
 permalink: /progreso/
 ---
 
-{% include head.html %}
-{% include header.html %}
-
 {% assign reporting_data = site.data[page.language].reporting | default: site.data.reporting %}
 
 <div id="main-content" class="container reportingstatus" role="main">
@@ -129,4 +126,3 @@ permalink: /progreso/
 
   {% include back-to-top.html %}
 </div>
-{% include footer.html %}
