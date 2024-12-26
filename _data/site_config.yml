@@ -37,7 +37,7 @@ create_pages:
     title: general.goals
   - filename: ''
     folder: /reporting-status
-    layout: reportingstatus
+    layout: progrestatus
     title: status.reporting_status
   - filename: ''
     folder: /search
