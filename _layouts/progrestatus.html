@@ -35,7 +35,7 @@
                             <span class="status-inner">{{ row.count }}</span>
                         </span>
                         <strong>{{ row.status }}</strong>
-                        <span class="value">{{ row.percentage | round }}%</span>
+                        <span class="value">{{ row.percentage | round: 2 }}%</span>
                     </div>
                     {% endfor %}
                     <br style="clear:both;">
@@ -43,7 +43,7 @@
             </div>
             <div class="goal-stats">
                 {% for row in overall_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round }}%"></span>
+                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round: 2 }}%"></span>
                 {% endfor %}
             </div>
             {% endif %}
@@ -84,7 +84,7 @@
                             <span class="status-inner">{{ row.count }}</span>
                         </span>
                         <strong>{{ row.status }}</strong>
-                        <span class="value">{{ row.percentage | round }}%</span>
+                        <span class="value">{{ row.percentage | round: 2 }}%</span>
                     </div>
                     {% endfor %}
                     <br style="clear:both;">
@@ -92,7 +92,7 @@
             </div>
             <div class="goal-stats">
                 {% for row in goal_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round }}%"></span>
+                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round: 2 }}%"></span>
                 {% endfor %}
             </div>
             {% endif %}
@@ -105,3 +105,4 @@
   {% include back-to-top.html %}
 </div>
 {% include footer.html %}
+
