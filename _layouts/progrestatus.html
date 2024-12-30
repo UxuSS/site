@@ -3,6 +3,7 @@
 
 <!-- Asignar los datos desde el CSV -->
 {% assign reporting_data = site.data.progreso %}
+{% assign overall_data = reporting_data | where: "goal", "overall" %}
 
 <div id="main-content" class="container reportingstatus" role="main">
   <!-- Introducción -->
@@ -12,7 +13,6 @@
 
   <!-- Reporte general -->
   <div>
-    {% assign overall_data = reporting_data | where: "goal", "overall" %}
     {% assign overall_totals = overall_data | map: "count" | sum %}
     {% assign indicators_plural = page.t.general.indicators | downcase %}
 
@@ -105,3 +105,4 @@
   {% include back-to-top.html %}
 </div>
 {% include footer.html %}
+
