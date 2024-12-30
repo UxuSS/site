@@ -14,7 +14,7 @@
   <div>
     <!-- Filtrar datos de "overall" -->
     {% assign overall_data = reporting_data | where: "goal", "overall" %}
-    {% assign overall_totals = overall_data | map: "total" | first %}
+    {% assign overall_totals = overall_data | map: "total" | first | times: 1 %} <!-- Convertir a número -->
     {% assign indicators_plural = page.t.general.indicators | downcase %}
 
     <div class="goal goal-overall">
@@ -61,7 +61,7 @@
     {% for goal in grouped_goals %}
     {% assign goal_data = goal.items %}
     {% assign goal_info = goal_data | first %}
-    {% assign goal_totals = goal_info.total %}
+    {% assign goal_totals = goal_info.total | times: 1 %} <!-- Convertir a número -->
     {% assign goal_details = goal_info.goal | strip | sdg_lookup %}
 
     <div class="goal reporting-status-item">
@@ -105,4 +105,3 @@
   {% include back-to-top.html %}
 </div>
 {% include footer.html %}
-
