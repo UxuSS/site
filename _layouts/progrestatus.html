@@ -3,7 +3,6 @@
 
 <!-- Asignar los datos desde el CSV -->
 {% assign reporting_data = site.data.progreso %}
-{% assign overall_data = reporting_data | where: "goal", "overall" %}
 
 <div id="main-content" class="container reportingstatus" role="main">
   <!-- Introducción -->
@@ -13,6 +12,9 @@
 
   <!-- Reporte general -->
   <div>
+    <!-- Filtrar datos de "overall" -->
+    {% assign overall_data = reporting_data | where: "goal", "overall" %}
+    <!-- Calcular el total de indicadores para "overall" -->
     {% assign overall_totals = overall_data | map: "count" | sum %}
     {% assign indicators_plural = page.t.general.indicators | downcase %}
 
@@ -54,6 +56,7 @@
   <!-- Reporte por objetivo -->
   <div>
     <h2>{{ page.t.status.status_by_goal }}</h2>
+    <!-- Filtrar datos de los objetivos (excluyendo "overall") -->
     {% assign goals_data = reporting_data | where_exp: "item", "item.goal != 'overall'" %}
     {% assign grouped_goals = goals_data | group_by: "goal" %}
 
@@ -62,6 +65,7 @@
     {% assign goal_info = goal_data | first %}
     {% assign goal_number = goal.name %}
     {% assign goal_details = goal_number | strip | sdg_lookup %}
+    <!-- Calcular el total de indicadores por objetivo -->
     {% assign total_indicators = goal_data | map: "count" | sum %}
 
     <div class="goal reporting-status-item">
