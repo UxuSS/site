@@ -11,7 +11,9 @@
 
   <!-- Reporte general -->
   <div>
-    {% assign overall_data = reporting_data | where: "goal", "overall" %}
+    {% assign overall = reporting_data | where: "goal", "overall" | first %}
+    {% assign indicators_plural = page.t.general.indicators | downcase %}
+
     <div class="goal goal-overall">
         <div class="frame goal-tiles">
             <img src="{{ site.baseurl }}/assets/img/SDG Wheel_Transparent-01.png" alt="{{ page.t.general.sdg }}" width="100" height="100" class="goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
@@ -20,24 +22,31 @@
             <h2 class="status-goal">
                 {{ page.t.status.overall_reporting_status }}
             </h2>
-            <span class="total"><span>{{ overall_data | first | map: "count" | sum }}</span> {{ page.t.general.indicators | downcase }}</span>
+            <span class="total"><span>{{ overall.totals.total }}</span> {{ indicators_plural }}</span>
+            {% if overall.totals.total > 0 %}
             <div class="summary">
                 <div class="statuses">
-                    {% for status in overall_data %}
-                    <div>
-                        <span class="status {{ status.status | slugify }}"><span class="status-inner">{{ status.count }}</span></span>
-                        <strong>{{ status.status }}</strong>
-                        <span class="value">{{ status.percentage }}%</span>
-                    </div>
-                    {% endfor %}
-                    <br style="clear:both;">
+                {% for status_type in site.reporting_status.status_types %}
+                {% assign status_stats = overall.statuses | where: "status", status_type.value | first %}
+                {% if status_stats %}
+                <div>
+                    <span class="status {{ status_type.value | slugify }}"><span class="status-inner">{{ status_stats.count }}</span></span><strong>{{ status_type.label | t }}</strong><span class="value">{{ status_stats.percentage | round }}%</span>
+                </div>
+                {% endif %}
+                {% endfor %}
+                <br style="clear:both;">
                 </div>
             </div>
             <div class="goal-stats">
-                {% for status in overall_data %}
-                <span class="{{ status.status | slugify }}" style="width:{{ status.percentage }}%" title="{{ status.status }}: {{ status.percentage }}%"></span>
+                {% for status_type in site.reporting_status.status_types %}
+                {% assign status_stats = overall.statuses | where: "status", status_type.value | first %}
+                {% if status_stats %}
+                {% assign percentage_precise = status_stats.count | divided_by: overall.totals.total | times: 100 %}
+                <span class="{{ status_type.value | slugify }}" style="width:{{ percentage_precise }}%" title="{{ status_type.label | t }}: {{ status_stats.percentage | round }}%"></span>
+                {% endif %}
                 {% endfor %}
             </div>
+            {% endif %}
         </div>
         <br style="clear:both;">
     </div>
@@ -47,36 +56,44 @@
   <div>
     <h2>{{ page.t.status.status_by_goal }}</h2>
     {% assign goals_data = reporting_data | where_exp: "item", "item.goal != 'overall'" %}
-    {% assign grouped_goals = goals_data | group_by: "goal" %}
-    {% for goal in grouped_goals %}
+    {% for goalreport in goals_data %}
+    {% assign goal = goalreport.goal | strip | sdg_lookup %}
     <div class="goal reporting-status-item">
         <div class="frame goal-tiles">
-            <a href="#" title="{{ page.t.goal.indicators_for_goal }} {{ goal.name }}" aria-label="{{ page.t.goal.indicators_for_goal }} {{ goal.name }}">
-            <img src="{{ goal.items | first | map: "icon" | first }}" alt="{{ page.t.general.goal }} {{ goal.name }}" width="100" height="100" class="goal-icon-{{ goal.name }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
+            <a href="{{ goal.url }}" title="{{ page.t.goal.indicators_for_goal }} {{ goal.number }}" aria-label="{{ page.t.goal.indicators_for_goal }} {{ goal.number }}">
+            <img src="{{ goal.icon }}" alt="{{ goal.short | escape }} - {{ page.t.general.goal }} {{ goal.number }}" width="100" height="100" class="goal-icon-{{ goal.number }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
             </a>
         </div>
         <div class="details">
             <h3 class="status-goal">
-                {{ page.t.general.goal }} {{ goal.name }}
+                <a href="{{ goal.url }}">{{ goal.short }}</a>
             </h3>
-            <span class="total">{{ goal.items | map: "count" | sum }} {{ page.t.general.indicators | downcase }}</span>
+            <span class="total">{{ goalreport.totals.total }} {{ indicators_plural }}</span>
+            {% if goalreport.totals.total > 0 %}
             <div class="summary">
                 <div class="statuses">
-                    {% for status in goal.items %}
+                    {% for status_type in site.reporting_status.status_types %}
+                    {% assign status_stats = goalreport.statuses | where: "status", status_type.value | first %}
+                    {% if status_stats %}
                     <div>
-                        <span class="status {{ status.status | slugify }}"><span class="status-inner">{{ status.count }}</span></span>
-                        <strong>{{ status.status }}</strong>
-                        <span class="value">{{ status.percentage }}%</span>
+                        <span class="status {{ status_type.value | slugify }}"><span class="status-inner">{{ status_stats.count }}</span></span><strong>{{ status_type.label | t }}</strong><span class="value">{{ status_stats.percentage | round }}%</span>
                     </div>
+                    {% endif %}
                     {% endfor %}
                     <br style="clear:both;">
                 </div>
             </div>
             <div class="goal-stats">
-                {% for status in goal.items %}
-                <span class="{{ status.status | slugify }}" style="width:{{ status.percentage }}%" title="{{ status.status }}: {{ status.percentage }}%"></span>
+                {% for status_type in site.reporting_status.status_types %}
+                {% assign status_stats = goalreport.statuses | where: "status", status_type.value | first %}
+                {% if status_stats %}
+                {% assign percentage_precise = status_stats.count | divided_by: goalreport.totals.total | times: 100 %}
+                <span class="{{ status_type.value | slugify }}" style="width:{{ percentage_precise }}%" title="{{ status_type.label | t }}: {{ status_stats.percentage | round }}%"></span>
+                {% endif %}
                 {% endfor %}
             </div>
+            {% endif %}
+            <div class="divider"></div>
         </div>
         <br style="clear:both;">
     </div>
