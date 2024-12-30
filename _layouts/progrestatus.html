@@ -1,6 +1,7 @@
 {% include head.html %}
 {% include header.html %}
 
+<!-- Asignar los datos desde el CSV -->
 {% assign reporting_data = site.data.progreso %}
 
 <div id="main-content" class="container reportingstatus" role="main">
@@ -59,7 +60,8 @@
     {% for goal in grouped_goals %}
     {% assign goal_data = goal.items %}
     {% assign goal_info = goal_data | first %}
-    {% assign goal_details = goal_info.goal | strip | sdg_lookup %}
+    {% assign goal_number = goal.name %}
+    {% assign goal_details = goal_number | strip | sdg_lookup %}
 
     <div class="goal reporting-status-item">
         <div class="frame goal-tiles">
