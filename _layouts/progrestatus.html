@@ -16,6 +16,7 @@
     {% assign overall_data = reporting_data | where: "goal", "overall" %}
     {% assign overall_totals = overall_data | map: "total" | first | times: 1 %}
     {% assign indicators_plural = page.t.general.indicators | downcase %}
+    {% assign status_types = site.reporting_status.status_types %}
 
     <div class="goal goal-overall">
         <div class="frame goal-tiles">
@@ -29,21 +30,27 @@
             {% if overall_totals > 0 %}
             <div class="summary">
                 <div class="statuses">
-                    {% for row in overall_data %}
+                    {% for status_type in status_types %}
+                    {% assign status_stats = overall_data | where: "status", status_type.value | first %}
+                    {% if status_stats %}
                     <div>
-                        <span class="status {{ row.status | slugify }}">
-                            <span class="status-inner">{{ row.count }}</span>
+                        <span class="status {{ status_type.value | slugify }}">
+                            <span class="status-inner">{{ status_stats.count }}</span>
                         </span>
-                        <strong>{{ row.status | t }}</strong> <!-- Traducción del literal -->
-                        <span class="value">{{ row.percentage | round: 2 }}%</span>
+                        <strong>{{ status_type.label | t }}</strong>
+                        <span class="value">{{ status_stats.percentage | round: 2 }}%</span>
                     </div>
+                    {% endif %}
                     {% endfor %}
                     <br style="clear:both;">
                 </div>
             </div>
             <div class="goal-stats">
-                {% for row in overall_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status | t }}: {{ row.percentage | round: 2 }}%"></span>
+                {% for status_type in status_types %}
+                {% assign status_stats = overall_data | where: "status", status_type.value | first %}
+                {% if status_stats %}
+                <span class="{{ status_type.value | slugify }}" style="width:{{ status_stats.percentage }}%" title="{{ status_type.label | t }}: {{ status_stats.percentage | round: 2 }}%"></span>
+                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
@@ -78,21 +85,27 @@
             {% if goal_totals > 0 %}
             <div class="summary">
                 <div class="statuses">
-                    {% for row in goal_data %}
+                    {% for status_type in status_types %}
+                    {% assign status_stats = goal_data | where: "status", status_type.value | first %}
+                    {% if status_stats %}
                     <div>
-                        <span class="status {{ row.status | slugify }}">
-                            <span class="status-inner">{{ row.count }}</span>
+                        <span class="status {{ status_type.value | slugify }}">
+                            <span class="status-inner">{{ status_stats.count }}</span>
                         </span>
-                        <strong>{{ row.status | t }}</strong> <!-- Traducción del literal -->
-                        <span class="value">{{ row.percentage | round: 2 }}%</span>
+                        <strong>{{ status_type.label | t }}</strong>
+                        <span class="value">{{ status_stats.percentage | round: 2 }}%</span>
                     </div>
+                    {% endif %}
                     {% endfor %}
                     <br style="clear:both;">
                 </div>
             </div>
             <div class="goal-stats">
-                {% for row in goal_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status | t }}: {{ row.percentage | round: 2 }}%"></span>
+                {% for status_type in status_types %}
+                {% assign status_stats = goal_data | where: "status", status_type.value | first %}
+                {% if status_stats %}
+                <span class="{{ status_type.value | slugify }}" style="width:{{ status_stats.percentage }}%" title="{{ status_type.label | t }}: {{ status_stats.percentage | round: 2 }}%"></span>
+                {% endif %}
                 {% endfor %}
             </div>
             {% endif %}
@@ -105,3 +118,4 @@
   {% include back-to-top.html %}
 </div>
 {% include footer.html %}
+
