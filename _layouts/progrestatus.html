@@ -14,7 +14,7 @@
   <div>
     <!-- Filtrar datos de "overall" -->
     {% assign overall_data = reporting_data | where: "goal", "overall" %}
-    {% assign overall_totals = overall_data | map: "total" | first | times: 1 %} <!-- Convertir a número -->
+    {% assign overall_totals = overall_data | map: "total" | first | times: 1 %}
     {% assign indicators_plural = page.t.general.indicators | downcase %}
 
     <div class="goal goal-overall">
@@ -34,7 +34,7 @@
                         <span class="status {{ row.status | slugify }}">
                             <span class="status-inner">{{ row.count }}</span>
                         </span>
-                        <strong>{{ row.status }}</strong>
+                        <strong>{{ row.status | t }}</strong> <!-- Traducción del literal -->
                         <span class="value">{{ row.percentage | round: 2 }}%</span>
                     </div>
                     {% endfor %}
@@ -43,7 +43,7 @@
             </div>
             <div class="goal-stats">
                 {% for row in overall_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round: 2 }}%"></span>
+                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status | t }}: {{ row.percentage | round: 2 }}%"></span>
                 {% endfor %}
             </div>
             {% endif %}
@@ -61,7 +61,7 @@
     {% for goal in grouped_goals %}
     {% assign goal_data = goal.items %}
     {% assign goal_info = goal_data | first %}
-    {% assign goal_totals = goal_info.total | times: 1 %} <!-- Convertir a número -->
+    {% assign goal_totals = goal_info.total | times: 1 %}
     {% assign goal_details = goal_info.goal | strip | sdg_lookup %}
 
     <div class="goal reporting-status-item">
@@ -83,7 +83,7 @@
                         <span class="status {{ row.status | slugify }}">
                             <span class="status-inner">{{ row.count }}</span>
                         </span>
-                        <strong>{{ row.status }}</strong>
+                        <strong>{{ row.status | t }}</strong> <!-- Traducción del literal -->
                         <span class="value">{{ row.percentage | round: 2 }}%</span>
                     </div>
                     {% endfor %}
@@ -92,7 +92,7 @@
             </div>
             <div class="goal-stats">
                 {% for row in goal_data %}
-                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status }}: {{ row.percentage | round: 2 }}%"></span>
+                <span class="{{ row.status | slugify }}" style="width:{{ row.percentage }}%" title="{{ row.status | t }}: {{ row.percentage | round: 2 }}%"></span>
                 {% endfor %}
             </div>
             {% endif %}
