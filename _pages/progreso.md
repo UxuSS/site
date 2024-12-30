@@ -43,6 +43,7 @@ permalink: /progreso/
             </a>
         </div>
         {% endfor %}
+        
     </div>
 </div>
 
