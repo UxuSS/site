@@ -62,6 +62,7 @@
     {% assign goal_info = goal_data | first %}
     {% assign goal_number = goal.name %}
     {% assign goal_details = goal_number | strip | sdg_lookup %}
+    {% assign total_indicators = goal_data | map: "count" | sum %}
 
     <div class="goal reporting-status-item">
         <div class="frame goal-tiles">
@@ -73,7 +74,7 @@
             <h3 class="status-goal">
                 <a href="{{ goal_details.url }}">{{ goal_details.short }}</a>
             </h3>
-            <span class="total">{{ goal_data | map: "count" | sum }} {{ indicators_plural }}</span>
+            <span class="total">{{ total_indicators }} {{ indicators_plural }}</span>
             {% if goal_data | size > 0 %}
             <div class="summary">
                 <div class="statuses">
