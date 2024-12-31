@@ -19,7 +19,7 @@ layout: page
   {% endfor %}
   {% assign grouped_indicators = grouped_indicators | sort %}
 
-  <!-- Mostrar indicadores agrupados -->
+  <!-- Mostrar indicadores agrupados en orden de objetivos -->
   {% for goal_number in grouped_indicators %}
     {% assign goal_details = goal_number | sdg_lookup %}
 
@@ -53,6 +53,11 @@ layout: page
               {% endif %}
             {% endif %}
           {% endfor %}
+        </ul>
+    </div>
+    <hr class="goal-page-target-rule" />
+  {% endfor %}
+</div>
         </ul>
     </div>
     <hr class="goal-page-target-rule" />
