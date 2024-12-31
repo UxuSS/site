@@ -5,7 +5,7 @@ permalink: municipal/
 layout: page
 ---
 
-## Lista de Indicadores
+## Lista de Indicadores por Objetivo
 
 <div class="container">
   {% assign indicators = site.data.municipal %}
@@ -19,7 +19,8 @@ layout: page
       {% assign grouped_indicators = grouped_indicators | push: goal_number %}
     {% endif %}
   {% endfor %}
-  {% assign grouped_indicators = grouped_indicators | uniq | sort %}
+  {% assign grouped_indicators = grouped_indicators | uniq %}
+  {% assign grouped_indicators = grouped_indicators | sort_natural %}
 
   <!-- Mostrar indicadores agrupados en orden de objetivos -->
   {% for goal_number in grouped_indicators %}
@@ -57,10 +58,6 @@ layout: page
                 <li>
                   <strong>{{ indicator.number }}</strong>: 
                   <a href="{{ indicator.url }}">{{ indicator.name }}</a>
-                </li>
-              {% else %}
-                <li>
-                  <strong>{{ indicator_number }}</strong>: Sin información disponible
                 </li>
               {% endif %}
             {% endif %}
