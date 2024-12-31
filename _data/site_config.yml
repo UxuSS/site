@@ -186,9 +186,6 @@ menu:
   - path: /reporting-status
     translation_key: menu.reporting_status
     dropdown: []
-  - path: /municipal
-    translation_key: Municipal
-    dropdown: []
   - path: /faq
     translation_key: menu.faq
     dropdown: []
