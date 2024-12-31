@@ -14,10 +14,12 @@ layout: page
   <!-- Agrupar indicadores por objetivo -->
   {% for indicator_row in indicators %}
     {% assign indicator_number = indicator_row.Indicator | remove: "#" %}
-    {% assign goal_number = indicator_number | split: "-" | first %}
-    {% assign grouped_indicators = grouped_indicators | push: goal_number | uniq %}
+    {% if indicator_number contains "-" %}
+      {% assign goal_number = indicator_number | split: "-" | first %}
+      {% assign grouped_indicators = grouped_indicators | push: goal_number %}
+    {% endif %}
   {% endfor %}
-  {% assign grouped_indicators = grouped_indicators | sort %}
+  {% assign grouped_indicators = grouped_indicators | uniq | sort %}
 
   <!-- Mostrar indicadores agrupados en orden de objetivos -->
   {% for goal_number in grouped_indicators %}
@@ -26,15 +28,21 @@ layout: page
     <div class="goal reporting-status-item">
         <!-- Icono del Objetivo -->
         <div class="frame goal-tiles">
+            {% if goal_details.icon %}
             <a href="{{ goal_details.url }}" title="{{ page.t.goal.goal_details }} {{ goal_details.number }}" aria-label="{{ page.t.goal.goal_details }} {{ goal_details.number }}">
                 <img src="{{ goal_details.icon }}" alt="{{ goal_details.short | escape }}" width="100" height="100" class="goal-icon-{{ goal_details.number }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
             </a>
+            {% endif %}
         </div>
         
         <!-- Título del Objetivo -->
         <div class="details">
             <h3 class="status-goal">
+                {% if goal_details.short %}
                 <a href="{{ goal_details.url }}">{{ goal_details.short }}</a>
+                {% else %}
+                Objetivo {{ goal_number }}
+                {% endif %}
             </h3>
         </div>
 
@@ -50,14 +58,13 @@ layout: page
                   <strong>{{ indicator.number }}</strong>: 
                   <a href="{{ indicator.url }}">{{ indicator.name }}</a>
                 </li>
+              {% else %}
+                <li>
+                  <strong>{{ indicator_number }}</strong>: Sin información disponible
+                </li>
               {% endif %}
             {% endif %}
           {% endfor %}
-        </ul>
-    </div>
-    <hr class="goal-page-target-rule" />
-  {% endfor %}
-</div>
         </ul>
     </div>
     <hr class="goal-page-target-rule" />
