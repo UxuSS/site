@@ -1,5 +1,5 @@
 ---
-title: This is my example title
+title: Municipal
 language: en
 permalink: municipal/
 layout: page
@@ -7,15 +7,16 @@ layout: page
 
 ## Lista de Indicadores
 
-<div class="container">
-  <ul>
-    {% assign indicators = site.data.municipal %}
-    {% for indicator in indicators %}
-      {% assign indicator_data = indicator.number | sdg_lookup %}
+<ul>
+  {% assign indicators = site.data.municipal %}
+  {% for indicator_row in indicators %}
+    {% assign indicator_number = indicator_row.Indicator | remove: "#" %}
+    {% assign indicator = indicator_number | sdg_lookup %}
+    {% if indicator %}
       <li>
-        <strong>{{ indicator_data.number }}</strong>: 
-        <a href="{{ indicator_data.url }}">{{ indicator_data.name }}</a>
+        <strong>{{ indicator.number }}</strong>: 
+        <a href="{{ indicator.url }}">{{ indicator.name }}</a>
       </li>
-    {% endfor %}
-  </ul>
-</div>
+    {% endif %}
+  {% endfor %}
+</ul>
