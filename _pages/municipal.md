@@ -5,40 +5,28 @@ permalink: municipal/
 layout: page
 ---
 
-Indicadores con datos municipales, agrupados por objetivo
+Indicadores con datos municipales
 
 <div class="container">
   {% assign indicators = site.data.municipal %}
-  {% assign grouped_indicators = "" | split: "," %}
-
-  <!-- Agrupar indicadores por objetivo -->
-  {% for indicator_row in indicators %}
-    {% assign indicator_number = indicator_row.Indicator | remove: "#" %}
-    {% if indicator_number contains "-" %}
-      {% assign goal_number = indicator_number | split: "-" | first %}
-      {% assign grouped_indicators = grouped_indicators | push: goal_number %}
-    {% endif %}
-  {% endfor %}
-  {% assign grouped_indicators = grouped_indicators | uniq %}
-  {% assign grouped_indicators = grouped_indicators | sort_natural %}
+  {% assign ordered_goals = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17" | split: "," %}
 
   <!-- Mostrar indicadores agrupados en orden de objetivos -->
-  {% for goal_number in grouped_indicators %}
+  {% for goal_number in ordered_goals %}
     {% assign goal_details = goal_number | sdg_lookup %}
 
     <div class="goal reporting-status-item">
-        <!-- Icono del Objetivo -->
-        <div class="frame goal-tiles">
+        <!-- Cabecera del Objetivo -->
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+            <!-- Icono del Objetivo -->
             {% if goal_details.icon %}
-            <a href="{{ goal_details.url }}" title="{{ page.t.goal.goal_details }} {{ goal_details.number }}" aria-label="{{ page.t.goal.goal_details }} {{ goal_details.number }}">
-                <img src="{{ goal_details.icon }}" alt="{{ goal_details.short | escape }}" width="100" height="100" class="goal-icon-{{ goal_details.number }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
+            <a href="{{ goal_details.url }}" title="{{ page.t.goal.goal_details }} {{ goal_details.number }}" style="margin-right: 15px;">
+                <img src="{{ goal_details.icon }}" alt="{{ goal_details.short | escape }}" width="80" height="80" class="goal-icon-{{ goal_details.number }} goal-icon-image goal-icon-image-{{ site.goal_image_extension }}"/>
             </a>
             {% endif %}
-        </div>
-        
-        <!-- Título del Objetivo -->
-        <div class="details">
-            <h3 class="status-goal">
+            
+            <!-- Título del Objetivo -->
+            <h3 style="margin: 0;">
                 {% if goal_details.short %}
                 <a href="{{ goal_details.url }}">{{ goal_details.short }}</a>
                 {% else %}
@@ -48,7 +36,7 @@ Indicadores con datos municipales, agrupados por objetivo
         </div>
 
         <!-- Listado de Indicadores -->
-        <ul>
+        <ul style="margin-top: 10px;">
           {% for indicator_row in indicators %}
             {% assign indicator_number = indicator_row.Indicator | remove: "#" %}
             {% assign indicator_goal = indicator_number | split: "-" | first %}
@@ -64,6 +52,6 @@ Indicadores con datos municipales, agrupados por objetivo
           {% endfor %}
         </ul>
     </div>
-    <hr class="goal-page-target-rule" />
+    <hr style="border: 0; border-top: 1px solid #ccc; margin: 20px 0;">
   {% endfor %}
 </div>
