@@ -36,16 +36,16 @@ Indicadores con datos municipales
         </div>
 
         <!-- Listado de Indicadores -->
-        <ul style="margin-top: 10px;">
+        <ul style="list-style: none; padding: 0; margin-top: 10px;">
           {% for indicator_row in indicators %}
             {% assign indicator_number = indicator_row.Indicator | remove: "#" %}
             {% assign indicator_goal = indicator_number | split: "-" | first %}
             {% if indicator_goal == goal_number %}
               {% assign indicator = indicator_number | sdg_lookup %}
               {% if indicator %}
-                <li>
-                  <strong>{{ indicator.number }}</strong>: 
-                  <a href="{{ indicator.url }}">{{ indicator.name }}</a>
+                <li style="margin-bottom: 20px;">
+                  {{ indicator.number }}: 
+                  <a href="{{ indicator.url }}" style="text-decoration: none; color: #0056b3;">{{ indicator.name }}</a>
                 </li>
               {% endif %}
             {% endif %}
