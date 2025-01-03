@@ -44,8 +44,10 @@ Indicadores con datos municipales
       {% assign indicator = indicator_number | sdg_lookup %}
       {% if indicator %}
         <li style="margin-bottom: 20px;">
-          {{ indicator.number }}: 
-          <a href="{{ indicator.url }}" style="text-decoration: underline; color: #0056b3;">{{ indicator.name }}</a>
+          <span>{{ indicator.number }}</span>&nbsp;&nbsp;&nbsp;
+          <a href="{{ indicator.url }}" style="text-decoration: underline; color: #0056b3; display: inline-block; text-indent: -3ch; padding-left: 3ch; max-width: 100%;">
+            {{ indicator.name }}
+          </a>
         </li>
       {% endif %}
     {% endif %}
